@@ -13,7 +13,7 @@ ui <- fluidPage(
         sidebarPanel(   
             fileInput('input', label = 'Nahrát excel',
                       accept = c('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', '.xlsx')),
-            textOutput('kontrola'),
+#            textOutput('kontrola'),
             p(),
             uiOutput('stahovatko'),
         width = 2),
