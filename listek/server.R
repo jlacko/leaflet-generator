@@ -28,29 +28,29 @@ mapa <- reactive({ # reaktivní Leaflet.js objekt - pro zobrazení i uložení
       if(setequal(names(dataset), c("id", "lng", "lat", "kategorie", "popisek"))) {
         
         # je správně = překreslím leaflet
-        paleta <- leaflet::colorFactor("viridis", 
+        paleta <- leaflet::colorFactor("Spectral", 
                                        domain = dataset$kategorie)
         
         vystup <- leaflet(data = dataset) %>% 
           addProviderTiles('Stamen.Toner',
-                           options = leafletOptions(attribution = 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> — Map data © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors — vytvořeno pomocí <a href="https://www.jla-data.net">JLA generátor</a>')) %>% 
+                           options = leafletOptions(opacity = .75,
+                                                    attribution = 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> — Map data © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors — vytvořeno v <a href="https://www.jla-data.net/cze/jla-leaflet-generator/">JLA generátoru</a>')) %>% 
           addCircleMarkers(radius = 10, # size of the dots
-                           fillOpacity = .7, # alpha of the dots
+                           fillOpacity = 1, # alpha of the dots
                            stroke = FALSE, # no outline
                            popup = ~paste0('<b>', dataset$id, '</b><br>', dataset$popisek),
                            color = paleta(dataset$kategorie),
                            clusterOptions = markerClusterOptions()) %>% 
           addLegend(position = "bottomright",
                     values = ~kategorie, # data frame column for legend
-                    opacity = .7, # alpha of the legend
+                    opacity = 1, # alpha of the legend
                     pal = paleta, # palette declared earlier
                     title = "kategorie") 
         
       } else {
         
         # katastrofická failure
-        
-        showNotification("soubor se nepovedlo nahrát!", type = 'error')
+        showNotification("Zpracování souboru se nezdařilo, zkontrolujte hlavičku!", type = 'error')
         
         # nullová verze - nic není...
         vystup <-   leaflet() %>% 
@@ -72,21 +72,16 @@ mapa <- reactive({ # reaktivní Leaflet.js objekt - pro zobrazení i uložení
     
     observe(output$map <- renderLeaflet({
         
-      ukazuji <- mapa()
+      mapa()
 
     }))
-    
-    
-#   output$kontrola <- renderText({
-#       if (is.null(input$input)) return('soubor nenahrán :(')
-#       'soubor zpracován:)'
-#       })
+  
    
-    output$stahovatko <- renderUI({
-        if (!is.null(input$input)) downloadButton('output', label = 'Uložit výsledek')
+    output$stahovatko <- renderUI({ # stahovátko - čudlík se ukáže až po zadání souboru
+        if (!is.null(input$input)) downloadButton('output', label = 'Uložit soubor')
     })
     
-    output$output <- downloadHandler(
+    output$output <- downloadHandler( # ukládátko -  stisknutí uloží soubor do lokálu
         
         filename = "leaflet.html",
         content = function(file) saveWidget(mapa(), file = file),
