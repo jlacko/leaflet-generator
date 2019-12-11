@@ -13,6 +13,7 @@ ui <- fluidPage(
                offset = 4,
                p(),
                uiOutput('stahovatko'),
+               uiOutput('chybovatko'),
                align = 'right'
         )),
         
