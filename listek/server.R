@@ -13,14 +13,12 @@ server <- function(input, output) {
   jsou_chyby <- reactiveVal(FALSE)
   
   mapa <- reactive({ # reaktivní Leaflet.js objekt - pro zobrazení i uložení
-    
 
-    
     # je něco zadaného?
     if(is.null(input$input)){
       
       # nullová verze - nic není...
-      vystup <-   leaflet() %>% 
+      vystup <- leaflet() %>% 
         addProviderTiles('Stamen.Toner') %>% 
         addPolygons(data = republika('low'),
                     color = 'grey')
@@ -28,8 +26,7 @@ server <- function(input, output) {
       return(vystup) # vracím a skončím
       
     }      
-        
-        
+
     # pokud je něco zadaného = načíst
     dataset <- read_excel(input$input$datapath)
     
@@ -45,12 +42,12 @@ server <- function(input, output) {
       showNotification("Zpracování souboru se nezdařilo, zkontrolujte hlavičku!", type = 'error')
       
       # nullová verze - nic není...
-      vystup <-   leaflet() %>% 
+      vystup <- leaflet() %>% 
           addProviderTiles('Stamen.Toner') %>% 
           addPolygons(data = republika('low'),
                       color = 'grey')
           
-      return(vystup)
+      return(vystup) # končím předčasně!
           
     }
         
@@ -96,20 +93,20 @@ server <- function(input, output) {
                                    domain = dataset$kategorie)
           
     vystup <- leaflet(data = dataset) %>% 
-    addProviderTiles('Stamen.Toner',
-                     options = leafletOptions(opacity = .75,
-                                              attribution = 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> — Map data © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors — vytvořeno v <a href="https://www.jla-data.net/cze/jla-leaflet-generator/">JLA generátoru</a>')) %>% 
-    addCircleMarkers(radius = 10, # size of the dots
-                     fillOpacity = 1, # alpha of the dots
-                     stroke = FALSE, # no outline
-                     popup = ~paste0('<b>', dataset$id, '</b><br>', dataset$popisek),
-                     color = paleta(dataset$kategorie),
-                     clusterOptions = markerClusterOptions()) %>% 
-    addLegend(position = "bottomright",
-              values = ~kategorie, # data frame column for legend
-              opacity = 1, # alpha of the legend
-              pal = paleta, # palette declared earlier
-              title = "kategorie") 
+      addProviderTiles('Stamen.Toner',
+                       options = leafletOptions(opacity = .75,
+                                                attribution = 'Map tiles by <a href="http://stamen.com", target="_blank">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0", target="_blank">CC BY 3.0</a> — Map data © <a href="https://www.openstreetmap.org/copyright", target="_blank">OpenStreetMap</a> contributors — vytvořeno v <a href="https://www.jla-data.net/cze/jla-leaflet-generator/", target="_blank">JLA generátoru</a>')) %>% 
+      addCircleMarkers(radius = 10, # size of the dots
+                       fillOpacity = 1, # alpha of the dots
+                       stroke = FALSE, # no outline
+                       popup = ~paste0('<b>', dataset$id, '</b><br>', dataset$popisek),
+                       color = paleta(dataset$kategorie),
+                       clusterOptions = markerClusterOptions()) %>% 
+      addLegend(position = "bottomright",
+                values = ~kategorie, # data frame column for legend
+                opacity = 1, # alpha of the legend
+                pal = paleta, # palette declared earlier
+                title = "kategorie") 
     
     vystup # vracím leaflet objekt...
       
@@ -123,13 +120,11 @@ server <- function(input, output) {
   
    
     output$stahovatko <- renderUI({ # stahovátko - čudlík se ukáže až po zadání souboru
-      
       if (!is.null(input$input)) downloadButton('output', label = 'Uložit soubor')
-      
     })
     
     output$chybovatko <- renderUI({ # chybovátko - čudlík se ukáže, pokud existují chyby
-      if (jsou_chyby()) downloadButton('chybar', label = 'Sezam chyb')
+      if (jsou_chyby()) downloadButton('chybar', label = 'Seznam chyb')
     })
     
     output$output <- downloadHandler( # ukládátko -  stisknutí uloží soubor do lokálu
