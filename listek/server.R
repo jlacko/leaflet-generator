@@ -96,12 +96,11 @@ server <- function(input, output) {
       addProviderTiles('Stamen.Toner',
                        options = leafletOptions(opacity = .75,
                                                 attribution = 'Map tiles by <a href="http://stamen.com", target="_blank">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0", target="_blank">CC BY 3.0</a> — Map data © <a href="https://www.openstreetmap.org/copyright", target="_blank">OpenStreetMap</a> contributors — vytvořeno v <a href="https://www.jla-data.net/cze/jla-leaflet-generator/", target="_blank">JLA generátoru</a>')) %>% 
-      addCircleMarkers(radius = 10, # size of the dots
+      addCircleMarkers(radius = 5, # size of the dots
                        fillOpacity = 1, # alpha of the dots
                        stroke = FALSE, # no outline
                        popup = ~paste0('<b>', dataset$id, '</b><br>', dataset$popisek),
-                       color = paleta(dataset$kategorie),
-                       clusterOptions = markerClusterOptions()) %>% 
+                       color = paleta(dataset$kategorie)) %>% 
       addLegend(position = "bottomright",
                 values = ~kategorie, # data frame column for legend
                 opacity = 1, # alpha of the legend
