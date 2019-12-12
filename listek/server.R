@@ -88,6 +88,9 @@ server <- function(input, output) {
           
     }
       
+    showNotification(paste('Zpracováno', nrow(dataset) , 'korektních souřadnic.'), type = 'message')
+      
+      
     # je správně = překreslím leaflet
     paleta <- leaflet::colorFactor("Spectral", 
                                    domain = dataset$kategorie)
