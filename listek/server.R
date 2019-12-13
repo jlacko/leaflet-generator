@@ -2,6 +2,7 @@ library(shiny)
 library(leaflet)
 library(RCzechia)
 library(htmlwidgets)
+library(leaflet.extras)
 library(readxl)
 library(writexl)
 library(sf)
@@ -108,7 +109,8 @@ server <- function(input, output) {
                 values = ~kategorie, # data frame column for legend
                 opacity = 1, # alpha of the legend
                 pal = paleta, # palette declared earlier
-                title = "kategorie") 
+                title = "kategorie") %>% 
+      addResetMapButton()
     
     vystup # vracím leaflet objekt...
       
