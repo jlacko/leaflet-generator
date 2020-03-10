@@ -1,6 +1,6 @@
 # leaflet-generator
 
-This is the English version of source code for leaflet map generator. The app proper is running on www.jla-data.net/eng/jla-leaflet-generator/.
+This is the English version of source code for leaflet map generator. The English version of the app is running on www.jla-data.net/eng/jla-leaflet-generator/  (on www.jla-data.net/cze/jla-leaflet-generator/ is the Czech version - the two versions are in principle indentical).
 
 Javascript library [leaflet](https://leafletjs.com/) is a practical, if not excactly user friendly, tool for creating of interactive maps.
 
