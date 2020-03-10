@@ -38,8 +38,10 @@ vignettes/*.pdf
 # R Environment Variables
 .Renviron
 
-# local datasets
+# local datasets, except for sample data
 /data-raw/*.xlsx
+!/data-raw/vzorek.xlsx
+!/data-raw/sample.xlsx
 
 # rstudio connect files
 */rsconnect/
