@@ -94,7 +94,7 @@ server <- function(input, output) {
     vystup <- leaflet(data = dataset) %>% 
       addProviderTiles('CartoDB.Positron',
                        options = leafletOptions(opacity = .75,
-                                                attribution = 'Map tiles by <a href="http://stamen.com", target="_blank">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0", target="_blank">CC BY 3.0</a> — Map data © <a href="https://www.openstreetmap.org/copyright", target="_blank">OpenStreetMap</a> contributors — vytvořeno v <a href="https://www.jla-data.net/cze/jla-leaflet-generator/", target="_blank">JLA generátoru</a>')) %>% 
+                                                attribution = 'Map tiles by <a href="http://stamen.com", target="_blank">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0", target="_blank">CC BY 3.0</a> — Map data © <a href="https://www.openstreetmap.org/copyright", target="_blank">OpenStreetMap</a> contributors — created with <a href="https://www.jla-data.net/eng/jla-leaflet-generator/", target="_blank">JLA Leaflet Generator</a>')) %>% 
       addCircleMarkers(radius = 5, # size of the dots
                        fillOpacity = 1, # alpha of the dots
                        stroke = FALSE, # no outline
