@@ -21,4 +21,4 @@ The app expects as input an *xlsx* file with 6 columns:
 * *category* – category of points; determines color of markers
 * *label* – body of popup; may contain HTML code if required
 
-A sample of data in expected structure can be downloaded by following [this link](https://github.com/jlacko/leaflet-generator/blob/english/data-raw/sample.xlsx?raw=true).
+A sample of data in expected structure can be downloaded by following [this link](https://github.com/jlacko/leaflet-generator/raw/master/data-raw/sample.xlsx).
